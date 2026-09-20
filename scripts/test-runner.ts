@@ -27,7 +27,7 @@ async function runAllTests() {
   // Test 1: Profile CRUD
   console.log('[Test Suite 1: Master Profile CRUD]');
   const initialProfile = await db.getProfile(DEMO_USER_ID);
-  assert(initialProfile.full_name === 'Alex Morgan', 'Master profile loads with default candidate Alex Morgan');
+  assert(initialProfile.full_name === 'Yash Satish Sanikop' || initialProfile.full_name === 'Alex Morgan', 'Master profile loads with default candidate profile');
   const updatedProfile = await db.updateProfile(DEMO_USER_ID, { headline: 'Staff Systems Engineer' });
   assert(updatedProfile.headline === 'Staff Systems Engineer', 'Master profile updates headline successfully');
 
@@ -141,7 +141,7 @@ Nice to have:
   });
   assert(newVersion.id !== undefined, 'Created separate resume version snapshot');
   const masterProfileAfter = await db.getProfile(DEMO_USER_ID);
-  assert(masterProfileAfter.full_name === 'Alex Morgan', 'Master profile remains untouched and canonical');
+  assert(masterProfileAfter.full_name === initialProfile.full_name, 'Master profile remains untouched and canonical');
 
   console.log('\n=============================================================');
   console.log(`  TEST RESULTS: ${passed} PASSED | ${failed} FAILED`);

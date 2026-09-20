@@ -27,7 +27,7 @@ export class GeminiProvider implements AIProvider {
   async analyzeJob(description: string, company?: string, role?: string): Promise<JobAnalysisOutput> {
     if (this.client) {
       try {
-        const model = this.client.getGenerativeModel({ model: 'gemini-1.5-flash' });
+        const model = this.client.getGenerativeModel({ model: 'gemini-3.6-flash' });
         const prompt = `You are an expert technical recruiter. Analyze the target job description and extract requirements in JSON.
 Do not fabricate information.
 
@@ -93,7 +93,7 @@ Output ONLY valid JSON matching this schema:
   async analyzeGitHubRepo(repoName: string, readme: string, manifestContent: string): Promise<RepoAnalysisOutput> {
     if (this.client) {
       try {
-        const model = this.client.getGenerativeModel({ model: 'gemini-1.5-flash' });
+        const model = this.client.getGenerativeModel({ model: 'gemini-3.6-flash' });
         const prompt = `Analyze this GitHub repository. Distinguish EXPLICIT facts (from package manifests/code) from INFERRED claims.
 Repo Name: ${repoName}
 Manifest / Code:
