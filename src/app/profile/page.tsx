@@ -207,50 +207,50 @@ export default function ProfileAndSourcesPage() {
         )}
 
         {/* Navigation Tabs */}
-        <div className="flex border-b border-slate-200 gap-2">
+        <div className="flex border-b border-slate-200 gap-1 sm:gap-2 overflow-x-auto whitespace-nowrap pb-px scrollbar-none">
           <button
             onClick={() => setActiveTab('resume')}
-            className={`flex items-center gap-2 py-2.5 px-4 text-sm font-semibold border-b-2 transition-colors ${
+            className={`flex items-center gap-1.5 sm:gap-2 py-2.5 px-3 sm:px-4 text-xs sm:text-sm font-semibold border-b-2 transition-colors shrink-0 ${
               activeTab === 'resume'
                 ? 'border-indigo-600 text-indigo-600'
                 : 'border-transparent text-slate-500 hover:text-slate-800'
             }`}
           >
-            <FileText className="w-4 h-4" />
-            Root Resume Template
-            {rootResume && <span className="w-2 h-2 rounded-full bg-emerald-500" />}
+            <FileText className="w-4 h-4 shrink-0" />
+            Root Resume
+            {rootResume && <span className="w-2 h-2 rounded-full bg-emerald-500 shrink-0" />}
           </button>
           <button
             onClick={() => setActiveTab('github')}
-            className={`flex items-center gap-2 py-2.5 px-4 text-sm font-semibold border-b-2 transition-colors ${
+            className={`flex items-center gap-1.5 sm:gap-2 py-2.5 px-3 sm:px-4 text-xs sm:text-sm font-semibold border-b-2 transition-colors shrink-0 ${
               activeTab === 'github'
                 ? 'border-indigo-600 text-indigo-600'
                 : 'border-transparent text-slate-500 hover:text-slate-800'
             }`}
           >
-            <GithubIcon className="w-4 h-4" />
-            GitHub ({repos.length} Repos)
+            <GithubIcon className="w-4 h-4 shrink-0" />
+            GitHub ({repos.length})
           </button>
           <button
             onClick={() => setActiveTab('linkedin')}
-            className={`flex items-center gap-2 py-2.5 px-4 text-sm font-semibold border-b-2 transition-colors ${
+            className={`flex items-center gap-1.5 sm:gap-2 py-2.5 px-3 sm:px-4 text-xs sm:text-sm font-semibold border-b-2 transition-colors shrink-0 ${
               activeTab === 'linkedin'
                 ? 'border-indigo-600 text-indigo-600'
                 : 'border-transparent text-slate-500 hover:text-slate-800'
             }`}
           >
-            <LinkedinIcon className="w-4 h-4" />
-            LinkedIn Ingestion
+            <LinkedinIcon className="w-4 h-4 shrink-0" />
+            LinkedIn
           </button>
           <button
             onClick={() => setActiveTab('profile')}
-            className={`flex items-center gap-2 py-2.5 px-4 text-sm font-semibold border-b-2 transition-colors ${
+            className={`flex items-center gap-1.5 sm:gap-2 py-2.5 px-3 sm:px-4 text-xs sm:text-sm font-semibold border-b-2 transition-colors shrink-0 ${
               activeTab === 'profile'
                 ? 'border-indigo-600 text-indigo-600'
                 : 'border-transparent text-slate-500 hover:text-slate-800'
             }`}
           >
-            <User className="w-4 h-4" />
+            <User className="w-4 h-4 shrink-0" />
             Personal Details
           </button>
         </div>
@@ -282,6 +282,7 @@ export default function ProfileAndSourcesPage() {
                   variant="outline" 
                   onClick={handleScanRootResume}
                   disabled={isScanningResume}
+                  className="w-full sm:w-auto shrink-0"
                 >
                   <RefreshCw className={`w-3.5 h-3.5 mr-1.5 ${isScanningResume ? 'animate-spin' : ''}`} />
                   Re-scan
@@ -531,7 +532,7 @@ export default function ProfileAndSourcesPage() {
               </div>
 
               <div className="flex justify-end pt-3">
-                <Button type="submit" disabled={isSaving} className="bg-indigo-600 hover:bg-indigo-700 text-white font-medium">
+                <Button type="submit" disabled={isSaving} className="w-full sm:w-auto bg-indigo-600 hover:bg-indigo-700 text-white font-medium">
                   {isSaving ? 'Saving...' : 'Save Profile Changes'}
                 </Button>
               </div>

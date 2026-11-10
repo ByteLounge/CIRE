@@ -406,7 +406,7 @@ function ResumeBuilderContent() {
 
           {/* RIGHT: Live ATS-Compliant Resume Preview */}
           <div className="lg:col-span-6">
-            <div className="bg-white rounded-xl shadow-md border border-slate-200 p-8 text-slate-900 font-sans print:shadow-none print:border-none print:p-0">
+            <div className="bg-white rounded-xl shadow-md border border-slate-200 p-4 sm:p-6 md:p-8 text-slate-900 font-sans overflow-hidden break-words print:shadow-none print:border-none print:p-0">
               {resumeData ? (
                 <div className={`space-y-4 ${
                   templateId === 'compact-engineering' ? 'text-[11px] leading-snug' : 'text-xs leading-relaxed'
@@ -416,15 +416,20 @@ function ResumeBuilderContent() {
                     <h1 className="text-xl font-bold tracking-tight text-slate-950 uppercase mb-1">
                       {resumeData.contact.name}
                     </h1>
-                    <p className="text-[11px] text-slate-600">
+                    <div className="text-[11px] text-slate-600 flex flex-wrap justify-center items-center gap-x-2 gap-y-0.5">
                       {[
                         resumeData.contact.email,
                         resumeData.contact.phone,
                         resumeData.contact.location,
                         resumeData.contact.linkedin,
                         resumeData.contact.github
-                      ].filter(Boolean).join('  |  ')}
-                    </p>
+                      ].filter(Boolean).map((item, idx, arr) => (
+                        <React.Fragment key={idx}>
+                          <span className="break-all">{item}</span>
+                          {idx < arr.length - 1 && <span className="text-slate-300 hidden sm:inline">•</span>}
+                        </React.Fragment>
+                      ))}
+                    </div>
                   </div>
 
                   {/* Summary */}
@@ -463,7 +468,7 @@ function ResumeBuilderContent() {
                       <div className="space-y-3">
                         {resumeData.experience.map((exp, i) => (
                           <div key={i} className="space-y-1">
-                            <div className="flex justify-between font-bold text-slate-950">
+                            <div className="flex flex-col sm:flex-row sm:items-center justify-between font-bold text-slate-950 gap-0.5">
                               <span>{exp.role} — {exp.company}</span>
                               <span className="font-medium text-slate-600">{exp.dates}</span>
                             </div>
@@ -487,7 +492,7 @@ function ResumeBuilderContent() {
                       <div className="space-y-3">
                         {resumeData.projects.map((proj, i) => (
                           <div key={i} className="space-y-1">
-                            <div className="flex justify-between font-bold text-slate-950">
+                            <div className="flex flex-col sm:flex-row sm:items-center justify-between font-bold text-slate-950 gap-0.5">
                               <span>
                                 {proj.title}
                                 <span className="font-normal text-slate-600 italic">
@@ -515,7 +520,7 @@ function ResumeBuilderContent() {
                       <div className="space-y-2">
                         {resumeData.education.map((edu, i) => (
                           <div key={i} className="space-y-0.5">
-                            <div className="flex justify-between font-bold text-slate-950">
+                            <div className="flex flex-col sm:flex-row sm:items-center justify-between font-bold text-slate-950 gap-0.5">
                               <span>{edu.institution}</span>
                               <span className="font-medium text-slate-600">{edu.dates}</span>
                             </div>

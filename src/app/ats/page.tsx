@@ -83,13 +83,13 @@ export default function ATSAnalysisPage() {
 
         {/* Version Selector */}
         {versions.length > 1 && (
-          <div className="flex items-center gap-2 overflow-x-auto pb-1">
-            <span className="text-xs font-semibold text-slate-500">Select Version:</span>
+          <div className="flex items-center gap-2 overflow-x-auto pb-2 whitespace-nowrap scrollbar-none">
+            <span className="text-xs font-semibold text-slate-500 shrink-0">Select Version:</span>
             {versions.map(v => (
               <button
                 key={v.id}
                 onClick={() => handleSelectVersion(v)}
-                className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors ${
+                className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors shrink-0 ${
                   selectedVersion?.id === v.id
                     ? 'bg-slate-900 text-white'
                     : 'bg-slate-100 text-slate-700 hover:bg-slate-200'

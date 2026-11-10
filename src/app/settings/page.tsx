@@ -64,7 +64,7 @@ export default function SettingsPage() {
               Control daily quotas, review generation costs, and manage spend safety kill switches.
             </p>
           </div>
-          <Button size="sm" variant="outline" onClick={fetchStatus}>
+          <Button size="sm" variant="outline" onClick={fetchStatus} className="w-full sm:w-auto shrink-0">
             <RefreshCw className="w-3.5 h-3.5 mr-1.5" />
             Refresh
           </Button>
@@ -98,6 +98,7 @@ export default function SettingsPage() {
               isLoading={isToggling}
               variant={status?.isAiEnabled ? 'danger' : 'primary'}
               size="sm"
+              className="w-full sm:w-auto shrink-0"
             >
               {status?.isAiEnabled ? 'Halt All AI Calls' : 'Activate AI Processing'}
             </Button>
@@ -175,26 +176,26 @@ export default function SettingsPage() {
             Configured AI Engine
           </h2>
 
-          <div className="flex items-center justify-between p-3 bg-slate-50 rounded-lg border border-slate-200">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between p-3 bg-slate-50 rounded-lg border border-slate-200 gap-2">
             <div className="flex items-center gap-2.5">
-              <Cpu className="w-4 h-4 text-indigo-600" />
+              <Cpu className="w-4 h-4 text-indigo-600 shrink-0" />
               <div>
                 <p className="font-bold text-slate-800">Primary Provider: Google Gemini API</p>
                 <p className="text-slate-500 font-mono text-[11px]">Model: gemini-1.5-flash</p>
               </div>
             </div>
-            <Badge variant="success" size="sm">Available</Badge>
+            <Badge variant="success" size="sm" className="self-start sm:self-auto">Available</Badge>
           </div>
 
-          <div className="flex items-center justify-between p-3 bg-slate-50 rounded-lg border border-slate-200">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between p-3 bg-slate-50 rounded-lg border border-slate-200 gap-2">
             <div className="flex items-center gap-2.5">
-              <Cpu className="w-4 h-4 text-slate-600" />
+              <Cpu className="w-4 h-4 text-slate-600 shrink-0" />
               <div>
                 <p className="font-bold text-slate-800">Local Free Engine: Ollama Local</p>
                 <p className="text-slate-500 font-mono text-[11px]">Endpoint: http://localhost:11434 (llama3)</p>
               </div>
             </div>
-            <Badge variant="default" size="sm">Configurable</Badge>
+            <Badge variant="default" size="sm" className="self-start sm:self-auto">Configurable</Badge>
           </div>
         </Card>
 

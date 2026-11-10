@@ -27,17 +27,18 @@ export const Sidebar: React.FC<{ isOpen: boolean; onClose: () => void }> = ({ is
       {/* Mobile Backdrop */}
       {isOpen && (
         <div 
-          className="fixed inset-0 z-40 bg-slate-900/50 backdrop-blur-xs lg:hidden"
+          className="fixed inset-0 z-40 bg-slate-900/60 backdrop-blur-xs lg:hidden transition-opacity"
           onClick={onClose}
+          aria-hidden="true"
         />
       )}
 
       <aside className={`
-        fixed top-0 bottom-0 left-0 z-40 w-64 bg-slate-900 text-slate-300 flex flex-col border-r border-slate-800 transition-transform duration-200 ease-in-out
-        ${isOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0
+        fixed top-0 bottom-0 left-0 z-50 w-72 sm:w-64 max-w-[85vw] bg-slate-900 text-slate-300 flex flex-col border-r border-slate-800 transition-transform duration-300 ease-in-out overscroll-contain
+        ${isOpen ? 'translate-x-0 shadow-2xl' : '-translate-x-full'} lg:translate-x-0 lg:shadow-none
       `}>
         {/* Brand Header */}
-        <div className="h-16 px-5 flex items-center justify-between border-b border-slate-800 bg-slate-950/40">
+        <div className="h-16 px-5 flex items-center justify-between border-b border-slate-800 bg-slate-950/40 shrink-0">
           <Link href="/" className="flex items-center gap-2.5 font-bold text-white tracking-tight">
             <div className="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center text-white font-black text-sm shadow-md">
               C

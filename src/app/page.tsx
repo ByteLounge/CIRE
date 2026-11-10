@@ -192,14 +192,14 @@ Requirements:
               <div className="w-10 h-10 rounded-xl bg-indigo-600 text-white flex items-center justify-center font-bold text-sm shadow-sm shrink-0">
                 YS
               </div>
-              <div>
-                <div className="flex items-center gap-2">
-                  <h2 className="text-base font-bold text-slate-900">
+              <div className="min-w-0">
+                <div className="flex flex-wrap items-center gap-2">
+                  <h2 className="text-base font-bold text-slate-900 truncate">
                     {profile?.full_name || 'Yash Satish Sanikop'}
                   </h2>
                   <Badge variant="success" size="sm">Individual Workspace</Badge>
                 </div>
-                <p className="text-xs text-slate-500">
+                <p className="text-xs text-slate-500 line-clamp-1 sm:line-clamp-none">
                   Evidence-grounded tailoring engine • Scrapes real GitHub repositories & LinkedIn
                 </p>
               </div>
@@ -207,18 +207,18 @@ Requirements:
 
             {/* Source Status Badges */}
             <div className="flex flex-wrap items-center gap-2 text-xs">
-              <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-50 border border-emerald-200 text-emerald-800 font-medium">
-                <FileText className="w-3.5 h-3.5 text-emerald-600" />
-                <span>Base Template: {rootResume?.fileName || 'Yash_Sanikop_Resume_Microsoft_SWE_Intern.docx'}</span>
+              <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-50 border border-emerald-200 text-emerald-800 font-medium max-w-full">
+                <FileText className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                <span className="truncate max-w-[180px] sm:max-w-xs md:max-w-none">Base Template: {rootResume?.fileName || 'Yash_Sanikop_Resume_Microsoft_SWE_Intern.docx'}</span>
               </div>
 
               <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-100 border border-slate-200 text-slate-700 font-medium">
-                <GithubIcon className="w-3.5 h-3.5 text-slate-800" />
+                <GithubIcon className="w-3.5 h-3.5 text-slate-800 shrink-0" />
                 <span>ByteLounge ({repoCount} Repos Active)</span>
               </div>
 
               <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-blue-50 border border-blue-200 text-blue-800 font-medium">
-                <LinkedinIcon className="w-3.5 h-3.5 text-blue-600" />
+                <LinkedinIcon className="w-3.5 h-3.5 text-blue-600 shrink-0" />
                 <span>yashsanikop</span>
               </div>
             </div>
@@ -262,7 +262,7 @@ Requirements:
               </div>
 
               <form onSubmit={handleTailorResume} className="space-y-4">
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
                     <label className="block text-xs font-semibold text-slate-700 mb-1">Target Role</label>
                     <input
@@ -439,20 +439,20 @@ Requirements:
           {/* RIGHT: Live Formatted Resume Preview */}
           <div className="lg:col-span-7 space-y-4">
             {/* Toolbar */}
-            <div className="flex items-center justify-between bg-white border border-slate-200/80 p-3 rounded-xl shadow-xs">
-              <div className="flex items-center gap-2">
-                <FileText className="w-4 h-4 text-indigo-600" />
-                <span className="text-xs font-bold text-slate-800">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white border border-slate-200/80 p-3 rounded-xl shadow-xs">
+              <div className="flex items-center gap-2 min-w-0">
+                <FileText className="w-4 h-4 text-indigo-600 shrink-0" />
+                <span className="text-xs font-bold text-slate-800 truncate">
                   {currentVersion?.version_name || 'Tailored Resume Preview'}
                 </span>
               </div>
 
-              <div className="flex items-center gap-2">
+              <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto justify-end">
                 <Button 
                   size="sm" 
                   variant="outline" 
                   onClick={handleCopyMarkdown} 
-                  className="text-xs h-8 px-2.5"
+                  className="text-xs h-8 px-2.5 flex-1 sm:flex-initial"
                   disabled={!resumeData}
                 >
                   {copied ? <Check className="w-3.5 h-3.5 text-emerald-600 mr-1" /> : <Copy className="w-3.5 h-3.5 mr-1" />}
@@ -463,7 +463,7 @@ Requirements:
                   size="sm" 
                   variant="outline" 
                   onClick={handlePrint} 
-                  className="text-xs h-8 px-2.5"
+                  className="text-xs h-8 px-2.5 flex-1 sm:flex-initial"
                   disabled={!resumeData}
                 >
                   <Printer className="w-3.5 h-3.5 mr-1" />
@@ -473,7 +473,7 @@ Requirements:
                 <Button 
                   size="sm" 
                   onClick={handleDownloadDocx} 
-                  className="text-xs h-8 px-3 bg-slate-900 hover:bg-slate-800 text-white font-medium"
+                  className="text-xs h-8 px-3 bg-slate-900 hover:bg-slate-800 text-white font-medium flex-1 sm:flex-initial"
                   disabled={!currentVersion}
                 >
                   <FileDown className="w-3.5 h-3.5 mr-1 text-white" />
@@ -484,14 +484,14 @@ Requirements:
 
             {/* Document Paper Container strictly matching Yash's template */}
             {resumeData ? (
-              <div className="bg-white border border-slate-300 rounded-lg shadow-md p-8 sm:p-10 font-sans text-slate-900 text-xs leading-relaxed max-w-3xl mx-auto print:border-none print:shadow-none print:p-0">
+              <div className="bg-white border border-slate-300 rounded-lg shadow-md p-4 sm:p-8 md:p-10 font-sans text-slate-900 text-xs leading-relaxed max-w-3xl mx-auto overflow-hidden break-words print:border-none print:shadow-none print:p-0">
                 
                 {/* Header */}
                 <div className="text-center pb-4 border-b border-slate-200">
-                  <h1 className="text-xl sm:text-2xl font-black tracking-tight text-slate-950 uppercase mb-1">
+                  <h1 className="text-lg sm:text-2xl font-black tracking-tight text-slate-950 uppercase mb-1">
                     {resumeData.contact.name}
                   </h1>
-                  <p className="text-[11px] text-slate-700 font-medium">
+                  <div className="text-[11px] text-slate-700 font-medium flex flex-wrap justify-center items-center gap-x-2 gap-y-0.5">
                     {[
                       resumeData.contact.location,
                       resumeData.contact.phone,
@@ -499,8 +499,13 @@ Requirements:
                       resumeData.contact.github ? resumeData.contact.github.replace('https://', '') : '',
                       resumeData.contact.linkedin ? resumeData.contact.linkedin.replace('https://', '') : '',
                       resumeData.contact.portfolio ? resumeData.contact.portfolio.replace('https://', '') : '',
-                    ].filter(Boolean).join(' | ')}
-                  </p>
+                    ].filter(Boolean).map((item, idx, arr) => (
+                      <React.Fragment key={idx}>
+                        <span className="break-all">{item}</span>
+                        {idx < arr.length - 1 && <span className="text-slate-300 hidden sm:inline">•</span>}
+                      </React.Fragment>
+                    ))}
+                  </div>
                 </div>
 
                 {/* 1. SUMMARY */}
@@ -523,7 +528,7 @@ Requirements:
                     </h2>
                     {resumeData.education.map((edu, i) => (
                       <div key={i} className="mb-2">
-                        <div className="flex items-center justify-between text-[11px] font-bold text-slate-900">
+                        <div className="flex flex-col sm:flex-row sm:items-center justify-between text-[11px] font-bold text-slate-900 gap-0.5">
                           <span>{edu.institution}</span>
                           <span className="font-normal text-slate-700">{edu.dates}</span>
                         </div>
@@ -560,7 +565,7 @@ Requirements:
                     </h2>
                     {resumeData.experience.map((exp, i) => (
                       <div key={i} className="mb-3">
-                        <div className="flex items-center justify-between text-[11px]">
+                        <div className="flex flex-col sm:flex-row sm:items-center justify-between text-[11px] gap-0.5">
                           <span className="font-bold text-slate-900">{exp.role}, {exp.company}</span>
                           <span className="text-slate-700">{exp.dates} {exp.location && `| ${exp.location}`}</span>
                         </div>
@@ -582,7 +587,7 @@ Requirements:
                     </h2>
                     {resumeData.projects.map((proj, i) => (
                       <div key={i} className="mb-3">
-                        <div className="flex items-center justify-between text-[11px]">
+                        <div className="flex flex-col sm:flex-row sm:items-center justify-between text-[11px] gap-0.5">
                           <span className="font-bold text-slate-900">{proj.title}</span>
                           <span className="text-slate-700 italic text-[10px]">{proj.technologies.join(', ')}</span>
                         </div>
@@ -592,7 +597,7 @@ Requirements:
                           ))}
                         </ul>
                         {proj.link && (
-                          <p className="pl-4 mt-0.5 text-[10px] text-slate-500 font-mono">
+                          <p className="pl-4 mt-0.5 text-[10px] text-slate-500 font-mono break-all">
                             {proj.link.replace('https://', '')}
                           </p>
                         )}

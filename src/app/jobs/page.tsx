@@ -190,7 +190,7 @@ Nice to have:
               </div>
 
               <div className="flex justify-end">
-                <Button type="submit" isLoading={isAnalyzing} className="bg-indigo-600 text-white font-medium shadow-sm">
+                <Button type="submit" isLoading={isAnalyzing} className="w-full sm:w-auto bg-indigo-600 text-white font-medium shadow-sm">
                   <Sparkles className="w-4 h-4 mr-1.5" />
                   Analyze & Map Evidence
                 </Button>
@@ -245,8 +245,8 @@ Nice to have:
                 </p>
               </div>
 
-              <Link href={`/builder?jobId=${selectedJob.id}`}>
-                <Button className="bg-indigo-600 hover:bg-indigo-700 text-white font-medium shadow-sm">
+              <Link href={`/builder?jobId=${selectedJob.id}`} className="w-full sm:w-auto">
+                <Button className="w-full sm:w-auto bg-indigo-600 hover:bg-indigo-700 text-white font-medium shadow-sm">
                   <Sparkles className="w-4 h-4 mr-1.5" />
                   Generate Tailored Resume for this Job
                 </Button>
