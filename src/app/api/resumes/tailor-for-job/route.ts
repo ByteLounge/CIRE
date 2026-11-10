@@ -296,16 +296,16 @@ Respond ONLY with valid JSON matching this schema:
       'years', 'year', 'experience', 'candidate', 'looking', 'opportunity', 'company', 'join', 'about'
     ]);
 
-    const jdWords = jobDescription.toLowerCase().match(/\b[a-z0-9+#.-]{2,}\b/g) || [];
+    const jdWords: string[] = jobDescription.toLowerCase().match(/\b[a-z0-9+#.-]{2,}\b/g) || [];
     const resumeTextAll = JSON.stringify(resumeData).toLowerCase();
     
     // Filter to meaningful technical & domain keywords
-    const uniqueJdKeywords = Array.from(new Set(jdWords)).filter(w => 
+    const uniqueJdKeywords: string[] = Array.from(new Set<string>(jdWords)).filter((w: string) => 
       !stopWords.has(w) && w.length >= 3
     );
     
-    const matchedKeywords = uniqueJdKeywords.filter(k => resumeTextAll.includes(k));
-    const missingKeywords = uniqueJdKeywords.filter(k => !resumeTextAll.includes(k)).slice(0, 8);
+    const matchedKeywords: string[] = uniqueJdKeywords.filter((k: string) => resumeTextAll.includes(k));
+    const missingKeywords: string[] = uniqueJdKeywords.filter((k: string) => !resumeTextAll.includes(k)).slice(0, 8);
 
     // Dimension 1: Technical Keyword Alignment (0 to 60 pts)
     const keywordRatio = matchedKeywords.length / Math.max(1, uniqueJdKeywords.length);

@@ -21,9 +21,24 @@ export async function GET(request: Request) {
     const requestedFile = searchParams.get('file');
 
     const cwd = process.cwd();
-    const files = fs.readdirSync(cwd);
+    let files: string[] = [];
+    try {
+      files = fs.readdirSync(/*turbopackIgnore: true*/ cwd);
+    } catch {
+      files = [];
+    }
 
-    // Look for all resume files in root directory
+    // Also check /tmp for uploaded files in serverless environments
+    try {
+      if (fs.existsSync('/tmp')) {
+        const tmpFiles = fs.readdirSync(/*turbopackIgnore: true*/ '/tmp');
+        files = Array.from(new Set([...files, ...tmpFiles]));
+      }
+    } catch {
+      // Ignore if /tmp is not available
+    }
+
+    // Look for all resume files
     const allResumeFiles = files.filter(f => 
       /resume|template|cv/i.test(f) && /\.(docx|pdf|txt|md)$/i.test(f)
     );
@@ -32,9 +47,17 @@ export async function GET(request: Request) {
       return NextResponse.json({
         success: true,
         found: false,
-        message: 'No resume file found in root directory. Please place your resume (.docx or .pdf) in the project root.',
+        message: 'No resume file found. Please place your resume (.docx or .pdf) in the project root.',
       });
     }
+
+    const resolveFilePath = (fileName: string) => {
+      const rootPath = path.join(/*turbopackIgnore: true*/ cwd, fileName);
+      if (fs.existsSync(rootPath)) return rootPath;
+      const tmpPath = path.join(/*turbopackIgnore: true*/ '/tmp', fileName);
+      if (fs.existsSync(tmpPath)) return tmpPath;
+      return rootPath;
+    };
 
     // Sort to prioritize .docx files (like Yash_Sanikop_Resume_Microsoft_SWE_Intern.docx), then newest mtime
     allResumeFiles.sort((a, b) => {
@@ -42,16 +65,20 @@ export async function GET(request: Request) {
       const isDocxB = b.toLowerCase().endsWith('.docx');
       if (isDocxA && !isDocxB) return -1;
       if (!isDocxA && isDocxB) return 1;
-      const mtimeA = fs.statSync(path.join(cwd, a)).mtimeMs;
-      const mtimeB = fs.statSync(path.join(cwd, b)).mtimeMs;
-      return mtimeB - mtimeA;
+      try {
+        const mtimeA = fs.statSync(resolveFilePath(a)).mtimeMs;
+        const mtimeB = fs.statSync(resolveFilePath(b)).mtimeMs;
+        return mtimeB - mtimeA;
+      } catch {
+        return 0;
+      }
     });
 
     const resumeFileName = requestedFile && allResumeFiles.includes(requestedFile)
       ? requestedFile
       : allResumeFiles[0];
 
-    const filePath = path.join(cwd, resumeFileName);
+    const filePath = resolveFilePath(resumeFileName);
     const stats = fs.statSync(filePath);
     let rawText = '';
 
@@ -115,13 +142,19 @@ export async function POST(request: Request) {
     }
 
     const cwd = process.cwd();
-    const savePath = path.join(cwd, file.name);
+    let savePath = path.join(/*turbopackIgnore: true*/ cwd, file.name);
     const arrayBuffer = await file.arrayBuffer();
-    fs.writeFileSync(savePath, Buffer.from(arrayBuffer));
+    try {
+      fs.writeFileSync(savePath, Buffer.from(arrayBuffer));
+    } catch {
+      // In serverless environments (e.g. Vercel), app root is read-only; fall back to /tmp
+      savePath = path.join(/*turbopackIgnore: true*/ '/tmp', file.name);
+      fs.writeFileSync(savePath, Buffer.from(arrayBuffer));
+    }
 
     return NextResponse.json({
       success: true,
-      message: `Successfully saved ${file.name} to root directory as template.`,
+      message: `Successfully saved ${file.name} as template.`,
       fileName: file.name,
     });
   } catch (error) {

@@ -286,7 +286,7 @@ export interface ResumeVersion {
   version_name: string;
   target_role: string;
   target_company?: string | null;
-  template_id: 'minimal-professional' | 'modern-technical' | 'compact-engineering';
+  template_id: 'minimal-professional' | 'modern-technical' | 'compact-engineering' | 'microsoft-swe-intern' | string;
   page_count: number;
   resume_data: ResumeData;
   created_at: string;
@@ -303,7 +303,7 @@ export interface ATSReport {
   formatting_issues: string[];
   bullet_length_issues: string[];
   unsupported_claims: string[];
-  analysis_details?: Record<string, unknown>;
+  analysis_details?: Record<string, any>;
   created_at: string;
 }
 

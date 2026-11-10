@@ -391,15 +391,15 @@ Requirements:
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-[10px] text-center">
                   <div className="p-2 rounded-lg bg-slate-50 border border-slate-200/80">
                     <span className="text-slate-400 block font-medium">Keywords</span>
-                    <span className="font-bold text-slate-800">{atsReport.analysis_details?.keyword_score || '58/60'}</span>
+                    <span className="font-bold text-slate-800">{String(atsReport.analysis_details?.keyword_score || '58/60')}</span>
                   </div>
                   <div className="p-2 rounded-lg bg-slate-50 border border-slate-200/80">
                     <span className="text-slate-400 block font-medium">Hierarchy</span>
-                    <span className="font-bold text-slate-800">{atsReport.analysis_details?.section_score || '20/20'}</span>
+                    <span className="font-bold text-slate-800">{String(atsReport.analysis_details?.section_score || '20/20')}</span>
                   </div>
                   <div className="p-2 rounded-lg bg-slate-50 border border-slate-200/80">
                     <span className="text-slate-400 block font-medium">Action Verbs</span>
-                    <span className="font-bold text-slate-800">{atsReport.analysis_details?.action_verb_score || '10/10'}</span>
+                    <span className="font-bold text-slate-800">{String(atsReport.analysis_details?.action_verb_score || '10/10')}</span>
                   </div>
                   <div className="p-2 rounded-lg bg-slate-50 border border-slate-200/80">
                     <span className="text-slate-400 block font-medium">Layout</span>
